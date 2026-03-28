@@ -1,1 +1,1 @@
-{"ExamplePlugin":{"version":"1.0.0","build":"https://cdn.jsdelivr.net/gh/Owner/Name@refs/heads/builds/ExamplePlugin.zip","buildCrc32":"63AD4997","changelog":"# 1.0.0\n* Initial version","minimumDiscordVersion":126021,"minimumAliucordVersion":"2.7.1","minimumApiLevel":21}}
+{"ExamplePlugin":{"version":"1.0.0","build":"https://cdn.jsdelivr.net/gh/Owner/Name@refs/heads/builds/ExamplePlugin.zip","buildCrc32":"AA9360F0","changelog":"# 1.0.0\n* Initial version","minimumDiscordVersion":126021,"minimumAliucordVersion":"2.7.1","minimumApiLevel":21}}
