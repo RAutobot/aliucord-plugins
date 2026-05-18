@@ -28,12 +28,12 @@ class MessageSaver : Plugin() {
         patcher.patch(`WidgetChatListActions$configureUI$10`::class.java.getDeclaredMethod("onClick", View::class.java), object : XC_MethodHook() {
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                 BufferedWriter(FileWriter("${Constants.BASE_PATH}/output.txt")).use {
-                    val msgs = storeMessagesHolder.getMessagesForChannel(StoreStream.getChannelsSelected().getId())!!.values
-                    for (msg in msgs) {
+                    val messages = storeMessagesHolder.getMessagesForChannel(StoreStream.getChannelsSelected().getId())!!.values
+                    for (msg in messages) {
                         it.write("${msg.id}>${msg.messageReference?.c()} ${msg.author.username}:${msg.content}\n")
                     }
 
-                    Utils.showToast("Exported ${msgs.size()} messages.")
+                    Utils.showToast("Exported ${messages.size()} messages!")
                 }
             }
         })
