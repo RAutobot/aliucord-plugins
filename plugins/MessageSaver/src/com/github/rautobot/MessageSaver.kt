@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 
 import com.aliucord.Constants
+import com.aliucord.Utils
 import com.aliucord.annotations.AliucordPlugin
 import com.aliucord.entities.Plugin
 
@@ -27,9 +28,12 @@ class MessageSaver : Plugin() {
         patcher.patch(`WidgetChatListActions$configureUI$10`::class.java.getDeclaredMethod("onClick", View::class.java), object : XC_MethodHook() {
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                 BufferedWriter(FileWriter("${Constants.BASE_PATH}/output.txt")).use {
-                    for (value in storeMessagesHolder.getMessagesForChannel(StoreStream.getChannelsSelected().getId())!!.values) {
-                        it.write("${value.id}>${value.messageReference?.c()} ${value.author.username}:${value.content}\n")
+                    val msgs = storeMessagesHolder.getMessagesForChannel(StoreStream.getChannelsSelected().getId())!!.values
+                    for (msg in msgs) {
+                        it.write("${msg.id}>${msg.messageReference?.c()} ${msg.author.username}:${msg.content}\n")
                     }
+
+                    Utils.showToast("Exported ${msgs.size()} messages.")
                 }
             }
         })
