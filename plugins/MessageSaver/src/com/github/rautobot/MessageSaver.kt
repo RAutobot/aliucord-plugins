@@ -28,10 +28,7 @@ class MessageSaver : Plugin() {
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                 BufferedWriter(FileWriter("${Constants.BASE_PATH}/output.txt")).use {
                     for (msg in storeMessagesHolder.getMessagesForChannel(StoreStream.getChannelsSelected().id)!!.values) {
-                        if (msg.content.isEmpty()) {
-                            continue
-                        }
-
+                        if (msg.content.isEmpty()) continue
                         it.write("${msg.id}>${msg.messageReference?.c()} ${msg.author.username}:${msg.content}\n")
                     }
                 }
