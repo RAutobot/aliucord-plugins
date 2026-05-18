@@ -18,7 +18,7 @@ import de.robv.android.xposed.XC_MethodHook
 import java.io.BufferedWriter
 import java.io.FileWriter
 
-@AliucordPlugin(requiresRestart = false)
+@AliucordPlugin
 class MessageSaver : Plugin() {
     override fun start(context: Context) {
         val storeMessagesHolder = StoreMessages::class.java.getDeclaredField("holder").apply {
@@ -30,8 +30,9 @@ class MessageSaver : Plugin() {
                 Utils.threadPool.execute {
                     BufferedWriter(FileWriter("${Constants.BASE_PATH}/output.txt")).use {
                         for (msg in storeMessagesHolder.getMessagesForChannel(StoreStream.getChannelsSelected().id)!!.values) {
-                            if (msg.content.isEmpty()) continue
-                            it.write("${msg.id}>${msg.messageReference?.c()} ${msg.author.username}:${msg.content}\n")
+                            if (msg.content.isNotEmpty()) {
+                                it.write("${msg.id}>${msg.messageReference?.c()} ${msg.author.username}:${msg.content}\n")
+                            }
                         }
                     }
                 }
